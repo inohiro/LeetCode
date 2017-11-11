@@ -20,18 +20,30 @@ def fib_topdown(n)
   else
     result = fib_topdown(n-1) + fib_topdown(n-2)
     @memo[n] = result
-    result
   end
 end
 
-%w(10 100 1_000 10_000 100_000).map(&:to_i).each do |i|
-  Benchmark.bm(10) do |b|
-    b.report "bottom up" do
-      fib_bottomup(i)
-    end
-    @memo.clear
-    b.report "topdown" do
-      fib_topdown(i)
-    end
+def fib(n)
+  if n <= 1
+    1
+  else
+    fib(n-1) + fib(n-2)
   end
 end
+
+# %w(10 100 1_000 10_000 100_000).map(&:to_i).each do |i|
+%w(10 20 30 40).map(&:to_i).each do |i|
+  puts fib_bottomup(i)
+  puts fib_topdown(i)
+  puts fib(i)
+  # Benchmark.bm(10) do |b|
+  #   b.report "bottom up" do
+  #     fib_bottomup(i)
+  #   end
+  #   @memo.clear
+  #   b.report "topdown" do
+  #     fib_topdown(i)
+  #   end
+  # end
+end
+
