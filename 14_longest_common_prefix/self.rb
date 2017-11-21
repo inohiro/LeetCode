@@ -3,36 +3,43 @@
 
 # Write a function to find the longest common prefix string amongst an array of strings.
 
-require 'pp'
-require 'pry'
-
 # @param {String[]} strs
 # @return {String}
 def longest_common_prefix(strs)
-  strs = strs.uniq.sort
+  return '' if strs.empty?
+  strs = strs.uniq.sort_by(&:length)
+  first = strs.first
+  common_prefix = []
 
-  current = 0
-
-  strs.each do |str|
-    (0..str.length-1).each do |i|
-      str[0]
+  first.chars.each_with_index do |char,i|
+    # puts "current char: #{char}"
+    strs.each do |str|
+      # puts "current str: #{str}"
+      unless str[i] == char
+        return common_prefix.join
+      end
     end
+    common_prefix << char
   end
-
-  binding.pry
-
-
-  strs.each do |str|
-    l = str.length
-  end
+  common_prefix.empty? ? '' : common_prefix.join
 end
 
 strs = %w(
+  aaaaab
+  aaaaab
   aaab
   aaac
   aaaaac
   aaaba
   aaaabab
 )
-# strs = []
-longest_common_prefix(strs)
+strs = %w(
+  prf_a
+  prf_b
+  prf_c
+  prf_d
+  prf_
+  prf_e
+)
+strs = [' ', ' ', '   ', ' ']
+puts longest_common_prefix(strs)
